@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+<div class="container">
+    </br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Valor negociado</th>
+                <th>Total a pagar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr class="active">
+                <td>{{cliente[0]}}</td>
+                <td>{{cliente[1]}}</td>
+                <td>{{cliente[2]}}</td>
+                <td>{{cliente[3]}}</td>
+                <td>
+                    <a href="{{ url_for('main.dell_cliente', id=cliente[0]) }}" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-trash"></span>Delete</a>
+                </td>
+                <td>
+
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                        Update</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Update</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{{ url_for('main.update_cliente', id=cliente[0]) }}">
+                                        <div class="form-group">
+                                            <label for="nome">Nome</label>
+                                            <input type="text" class="form-control" name='nome'>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="valor">Valor Negociado</label>
+                                            <input type="number" class="form-control" name='valor'
+                                                placeholder="Valor negociado" min="1" max="99999999">
+                                        </div>
+                                        <button type="submit" class="btn btn-warning btn-sm">
+                                            <span class="glyphicon glyphicon-plus"></span></a>Update</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<div>
+    <div class="container">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#creteModal">
+            Novo cliente</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="creteModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Create </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url_for('main.create') }}">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control" name='nome'>
+                            </div>
+                            <div class="form-group">
+                                <label for="valor">Valor Negociado</label>
+                                <input type="number" class="form-control" name='valor' placeholder="Valor negociado"
+                                    min="1" max="99999999">
+                            </div>
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <span class="glyphicon glyphicon-plus"></span></a>Create</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</br>
+<a href="#">Requições realizadas a API 1 <span class="badge">{{count}}</span></a><br>
+
+</div>
+{% endblock %}
